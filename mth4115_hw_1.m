@@ -16,7 +16,7 @@ end
 
 
 function [calc, count] = bisect_method(a, b, epsilon)
-%   weight the appropaite values of upper and lower
+    %   weight the appropaite values of upper and lower
     if equation(a) > equation(b)
         upper = a;
         lower = b;
@@ -28,11 +28,11 @@ function [calc, count] = bisect_method(a, b, epsilon)
     % iterates over to find a solution while calling the equation function
     c = (upper + lower)/2;
     count = 0;
-%   bounded range by arbitrary epsilon for root finder
+    %   bounded range by arbitrary epsilon for root finder
     while (equation(c) > epsilon)||(-epsilon > equation(c))  
         count = count + 1;
         c = (upper + lower)/2;
-%       decision process for bisection process
+        %   decision process for bisection process
         if equation(c) > 0
             upper = c;
         elseif equation(c) < 0
@@ -49,7 +49,7 @@ function [calc, count] = fixed_itter(start_val, epsilon)
     c = g(c);
     count = 0;
     
-%   itterative function for succesively dimisnhing the fixed-point
+    %   itterative function for succesively dimisnhing the fixed-point
     while abs(old-c) > epsilon
         count = count + 1;
         old = c;
@@ -59,10 +59,11 @@ function [calc, count] = fixed_itter(start_val, epsilon)
 end
 
 
-% used to apporximate the value of squares provided a guess and epsilon
+% used to approximate the value of squares provided a guess and epsilon
 function [square, count] = sq_root(approx, guess, epsilon)
     count=0;
     square = (guess + (approx/guess))/2;
+    %   range bounded epsilon checking adajcent sets
     while abs((sqrt(approx)-square)) > epsilon
         count = count + 1;
         square = (square +(approx/square))/2;
@@ -80,7 +81,7 @@ end
 
 % refrence equations for root-solving (un-comment your desired equation)
 function equ = equation(v)
-%     equ = v^3-9;
+    equ = v^3-9;
 %     equ = (3*v^3) + (v^2) - v - 5;
 %     equ = (cos(v))^2 + 6 - v;
 %     equ = (2*v^3) - (6*v) - 1;
