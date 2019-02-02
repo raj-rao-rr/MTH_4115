@@ -3,6 +3,8 @@ clear
 val = secant_method(1,2, 0.00000001);
 disp(val)
 
+func = @g;
+disp(fzero(func,[-2,1]))
 
 function calc = newton_method(initial_guess, epsilon)
     calc = initial_guess - equ(initial_guess)/deri(initial_guess);
