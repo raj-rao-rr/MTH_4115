@@ -1,6 +1,6 @@
 clear 
 
-matrix = [[1,2];[2,3]];
+matrix = [[1,2,2];[4,3,3];[3,2,4]];
 naive_ge(matrix)
 
 function arr = naive_ge(m)
@@ -12,9 +12,17 @@ function arr = naive_ge(m)
         for i = j+1 : length(m)
 %       multiplication/scalar factor for performing G.E. 
             mult = m(i,j)/m(j,j);
-            wipe = m(i-1,:).*mult;
+            wipe = m(j,:).*mult;
             m(i,:) = m(i,:) - wipe;
         end
     end
+    
     arr = m;
+    
+%     for i = length(m) : -1 : 1
+%         for j = i+1 : lenght(m)
+%             b(i) = b(i) - a(i,j)*x(j);
+%         end
+%         x(i) = b(i)/a(i,i);
+%     end
 end
