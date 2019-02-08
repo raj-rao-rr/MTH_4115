@@ -1,8 +1,32 @@
 clear 
 
-matrix = [[1,2,2,1];[4,3,2,2];[3,1,4,4]];
-ep_form = naive_ge(matrix);
-disp(backward_sub(ep_form))
+m = [[3,1,2];[6,3,4];[3,1,5]];
+[L , U] = lu_decomp(m);
+disp(L)
+disp(U)
+
+matrix = [[2,-2,-1,-2];[4,1,-2,1];[-2,1,-1,-3]];
+% ep_form = naive_ge(matrix);
+% disp(backward_sub(ep_form))
+
+
+% perform LU decomposition on an [m X m] matrix 
+function [L,U] = lu_decomp(m)
+    L = eye(length(m));
+    for j = 1 : length(m)-1
+%       if zero pivot encountered end the script 
+        if abs(m(j,j))<1e-6; error("zero pivot encountered"); end
+%       for each row below the jth row being active to end of matrix 
+        for i = j+1 : size(m,1)
+%       multiplication/scalar factor for performing G.E. 
+            mult = m(i,j)/m(j,j);
+            L(i,j) = mult;
+            wipe = m(j,:).*mult;
+            m(i,:) = m(i,:) - wipe;
+        end
+    end
+    U = m;
+end
 
 
 % perform Guassian elimination on an [m X m+1] matrix 
