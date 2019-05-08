@@ -13,10 +13,10 @@ function [L, U, P, A] = bvp_matrix(a,b,c1, c2, c3, a1, b1, a2, b2)
     
 %     recreating the A matrix to be used with FDF2 and BDF2 
     A = zeros(length(c1));
-    for i = 1:length(c1)-2
-        r3 = c1(i)/(h^2) + c2(i)/(2*h);
-        r2 = (-2*c1(i))/(h^2) + c3(i);
-        r1 = c1(i)/(h^2) - c2(i)/(2*h);
+    for i = 1:length(f)-2
+        r3 = c1(i+1)/(h^2) + c2(i+1)/(2*h);
+        r2 = (-2*c1(i+1))/(h^2) + c3(i+1);
+        r1 = c1(i+1)/(h^2) - c2(i+1)/(2*h);
         A(i+1,i:i+2) = [r1,r2,r3];
     end 
     
