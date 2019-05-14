@@ -1,3 +1,4 @@
+
 %   closed form price for a european option 
 function V = european_formula(id, K, t, S, sigma, q, r)
 %   id = 1 for call and 0 for put
