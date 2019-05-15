@@ -1,5 +1,31 @@
 clear 
 
+% % problem 1
+% % N = 2^8; M = 2^7; 
+% % q = 0; r = 0.01; T = 1; K = 50; sigma = 0.1;
+% % ve = 1.919766444277223;
+% % v = bs_eu_be(N, M, K, T, r, q, sigma, 2*K);
+% % error_1 = norm(v(N/2)-ve);
+% % error_1
+
+% % Problem 2
+% % clear
+% % N = 2^8; M = 2^7; 
+% % q = 0; r = 0.01; T = 1; K = 50; sigma = 0.1;
+% % ve = 1.921673472665866;
+% % v = bs_eu_cn(N, M, K, T, r, q, sigma, 2*K);
+% % error_2 = norm(v(N/2)-ve);
+% % error_2
+
+% % Problem 3
+% clear
+% N = 2^8; M = 2^7; 
+% q = 0; r = 0.01; T = 1; K = 50; sigma = 0.1;
+% ve = 1.964605919902253;
+% v = bs_am_be(N, M, K, T, r, q, sigma, 2*K);
+% error_3 = norm(v(N/2)-ve);
+% error_3
+
 
 % black-scholes solver using backward euler (European Style)
 function v = bs_eu_be(N, M, K, T, r, q, sigma, Sm)
@@ -67,6 +93,7 @@ function v = bs_am_be(N, M, K, T, r, q, sigma, Sm)
     
     [A, L, U, P] = bvp_matrix(0,Sm, c1, c2, c3, 1, 0, 1, 0);
     v = max(K-s, 0);
+    g=v;
     
 %     itteratively solving using the backward-euler method 
     for i = 0:M-1
@@ -88,12 +115,14 @@ function [u] = bvp_solve(r, g1, g2, L, U, P)
     u = (L*U)\(P*r);  
 end
 
+
 % Boundary Value Problem solvers - back substition using projection 
 function [u] = bvp_solve_pj(r, g, g1, g2, L, U, P)
     r(1) = g1;
     r(length(r)) = g2;
-%     solved by seeting Ax=b -> LUx=Pb, where b = r
-    u = pback(L*U, P*r, g);  
+%     solved by seeting projected back-substiution -> LUx=Pb, where b = r
+    c = (L\P*r);
+    u = pback(U, c, g);
 end
 
 
@@ -128,12 +157,10 @@ end
 
 % solving projected backward substitution 
 function X = pback(U, b, g)
-%     back substituion for defining T 
-    T = back(U, b);
-    X = ones(length(T), 1);
+    X = zeros(length(U), 1);
     
-    for i = length(T):-1:1
-%         computes the backward solution to find the equavlent value of T
+    for i = length(U):-1:1
+%         computes the backward solution to find the equivlent value of U
         size = U(i,i+1:length(U));
         t_base = (b(i,1) - dot(size,X(i+1:length(X),1))) / U(i,i);
         
