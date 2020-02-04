@@ -1,3 +1,3 @@
-MATLAB code to computer problems found within Numerical Analysis, 2nd Edition (9780321783677): Timothy Sauer for MTH 4115 (Numerical Methods for Diffential Equations in Finance) taken at Baruch College Spring 2019
+MATLAB code to computer problems found within Numerical Analysis, 2nd Edition 
 
 This course covers exact solutions of ordinary and partial differential equations, as well as numerical solutions to these differential equations using finite difference methods. The financial applications include the Black-Scholes model and corresponding formulas, as well as practical issues of computing implied volatilities for American and European options from market data. The course will provide students with practical numerical tools for financial derivatives valuation
